@@ -1,0 +1,19 @@
+.filter-btn {
+  height: 48px;
+  padding: 0 14px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--glass-border-strong);
+  background: rgba(255, 255, 255, 0.2);
+  color: var(--text-primary);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  backdrop-filter: var(--glass-blur);
+}
+
+.filter-btn--active {
+  border-color: var(--premium-gold);
+  box-shadow: 0 4px 16px var(--premium-gold-glow);
+}
+

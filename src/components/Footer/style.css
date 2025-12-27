@@ -1,0 +1,29 @@
+.footer {
+  padding: var(--space-7) 0;
+  border-top: 1px solid var(--glass-border-strong);
+  backdrop-filter: var(--glass-blur);
+  background: rgba(12, 26, 42, 0.4);
+}
+
+.footer__content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-5);
+}
+
+.footer__brand {
+  font-weight: 700;
+}
+
+.footer__text {
+  font-size: var(--font-size-md);
+}
+
+@media (max-width: 768px) {
+  .footer__content {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+

@@ -1,0 +1,32 @@
+.map-page {
+  display: grid;
+  gap: var(--space-6);
+}
+
+.map-page__layout {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: var(--space-6);
+}
+
+.map-page__list {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.map-page__map {
+  min-height: 480px;
+}
+
+.map-page__meta {
+  font-size: var(--font-size-md);
+}
+
+@media (max-width: 900px) {
+  .map-page__layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+

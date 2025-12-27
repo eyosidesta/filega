@@ -1,0 +1,12 @@
+.premium__header {
+  margin-bottom: var(--space-6);
+  display: grid;
+  gap: var(--space-3);
+}
+
+.premium__header h1 {
+  margin: 0;
+}
+
+
+

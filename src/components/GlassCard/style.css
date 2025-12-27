@@ -1,0 +1,18 @@
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--glass-shadow);
+  padding: var(--space-6);
+}
+
+.glass-card--dark {
+  background: var(--glass-bg-strong);
+}
+
+.glass-card--premium {
+  border: 2px solid var(--premium-gold);
+  box-shadow: 0 8px 32px var(--premium-gold-glow);
+}
+

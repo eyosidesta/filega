@@ -1,0 +1,40 @@
+.submit__header {
+  margin-bottom: var(--space-6);
+}
+
+.submit__card {
+  padding: var(--space-7);
+}
+
+.submit__form {
+  display: grid;
+  gap: var(--space-5);
+}
+
+.submit__field {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.submit__field label {
+  font-weight: 600;
+}
+
+.submit__field input,
+.submit__field select {
+  background: rgba(255, 255, 255, 0.18);
+  border: 1px solid var(--glass-border-strong);
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+  color: var(--text-primary);
+  font-size: var(--font-size-base);
+  outline: none;
+}
+
+.submit__field.two-col {
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--space-4);
+}
+
+
+

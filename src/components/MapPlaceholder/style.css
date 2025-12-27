@@ -1,0 +1,28 @@
+.map-placeholder {
+  background: rgba(12, 26, 42, 0.55);
+  border: 1px dashed var(--glass-border-strong);
+  border-radius: var(--radius-lg);
+  height: 420px;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.map-placeholder__badge {
+  position: absolute;
+  top: var(--space-4);
+  right: var(--space-4);
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid var(--glass-border);
+  padding: 6px 12px;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-sm);
+}
+
+.map-placeholder__text {
+  font-size: var(--font-size-lg);
+  color: var(--text-secondary);
+}
+

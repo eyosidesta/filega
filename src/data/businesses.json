@@ -1,0 +1,83 @@
+[
+  {
+    "id": "b1",
+    "name": "Addis Aroma Cafe",
+    "category": "Restaurant",
+    "phone": "+1 416-555-1234",
+    "website": "https://addisaroma.example.com",
+    "address": {
+      "street": "123 Queen St W",
+      "city": "Toronto",
+      "provinceOrState": "ON",
+      "postalCode": "M5H 2N2",
+      "country": "CA",
+      "lat": 43.652,
+      "lng": -79.383
+    },
+    "subscription": "PREMIUM",
+    "status": "active",
+    "images": ["/placeholder/restaurant-1.jpg"],
+    "keywords": ["coffee", "injera", "lunch"]
+  },
+  {
+    "id": "b2",
+    "name": "Blue Nile Market",
+    "category": "Grocery",
+    "phone": "+1 206-555-7788",
+    "website": "https://bluenilemarket.example.com",
+    "address": {
+      "street": "742 Pine St",
+      "city": "Seattle",
+      "provinceOrState": "WA",
+      "postalCode": "98101",
+      "country": "US",
+      "lat": 47.611,
+      "lng": -122.336
+    },
+    "subscription": "BASIC",
+    "status": "active",
+    "images": ["/placeholder/grocery-1.jpg"],
+    "keywords": ["spices", "injera", "berbere"]
+  },
+  {
+    "id": "b3",
+    "name": "Habesha Beauty Salon",
+    "category": "Salon",
+    "phone": "+1 703-555-4123",
+    "website": "https://habeshabeauty.example.com",
+    "address": {
+      "street": "88 King St",
+      "city": "Alexandria",
+      "provinceOrState": "VA",
+      "postalCode": "22314",
+      "country": "US",
+      "lat": 38.804,
+      "lng": -77.043
+    },
+    "subscription": "PREMIUM",
+    "status": "active",
+    "images": ["/placeholder/salon-1.jpg"],
+    "keywords": ["hair", "spa"]
+  },
+  {
+    "id": "b4",
+    "name": "Lalibela Services",
+    "category": "Services",
+    "phone": "+1 613-555-9876",
+    "website": "",
+    "address": {
+      "street": "200 Bank St",
+      "city": "Ottawa",
+      "provinceOrState": "ON",
+      "postalCode": "K2P 1W8",
+      "country": "CA",
+      "lat": 45.42,
+      "lng": -75.7
+    },
+    "subscription": "BASIC",
+    "status": "pending",
+    "images": ["/placeholder/service-1.jpg"],
+    "keywords": ["consulting", "legal"]
+  }
+]
+

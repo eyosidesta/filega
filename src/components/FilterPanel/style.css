@@ -1,0 +1,30 @@
+.filter-panel {
+  display: grid;
+  gap: var(--space-5);
+}
+
+.filter-panel__group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.filter-panel label {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.filter-panel select {
+  background: rgba(255, 255, 255, 0.2);
+  color: var(--text-primary);
+  border: 1px solid var(--glass-border-strong);
+  border-radius: var(--radius-md);
+  padding: 10px;
+  outline: none;
+}
+
+.filter-panel__actions {
+  display: flex;
+  justify-content: flex-end;
+}
+

@@ -1,0 +1,19 @@
+.businesses__header {
+  display: flex;
+  gap: var(--space-4);
+  align-items: center;
+  margin-bottom: var(--space-5);
+}
+
+.businesses__meta {
+  margin: var(--space-4) 0;
+}
+
+@media (max-width: 768px) {
+  .businesses__header {
+    flex-direction: column;
+  }
+}
+
+
+
