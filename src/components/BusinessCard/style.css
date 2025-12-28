@@ -1,6 +1,7 @@
 .business-card {
   display: grid;
   gap: var(--space-5);
+  cursor: pointer;
 }
 
 .business-card__header {

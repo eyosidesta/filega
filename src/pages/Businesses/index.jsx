@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import SearchBar from '../../components/SearchBar'
 import FilterButton from '../../components/FilterButton'
 import FilterPanel from '../../components/FilterPanel'
@@ -10,6 +11,7 @@ import { usePagination } from '../../hooks/usePagination'
 import './style.css'
 
 function Businesses() {
+  const navigate = useNavigate()
   const { filters, updateFilter, clearFilters } = useFilters()
   const [showFilters, setShowFilters] = useState(false)
   const results = useMockSearch({ ...filters, term: filters.term || '' })
@@ -31,7 +33,7 @@ function Businesses() {
         Showing {paginated.length} of {results.length} businesses
       </div>
 
-      <BusinessList items={paginated} />
+      <BusinessList items={paginated} onView={(b) => navigate(`/business/${b.id}`)} />
 
       <Pagination
         page={page}

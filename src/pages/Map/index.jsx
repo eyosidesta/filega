@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import BusinessList from '../../components/BusinessList'
 import FilterPanel from '../../components/FilterPanel'
 import MapPlaceholder from '../../components/MapPlaceholder'
@@ -8,6 +9,7 @@ import { filterByBounds, mockBounds } from '../../utils/mapUtils'
 import './style.css'
 
 function MapPage() {
+  const navigate = useNavigate()
   const { filters, updateFilter, clearFilters } = useFilters()
   const [bounds] = useState(mockBounds())
   const results = useMockSearch({ ...filters, term: filters.term || '' })
@@ -22,7 +24,7 @@ function MapPage() {
       <div className="map-page__layout">
         <div className="map-page__list">
           <div className="map-page__meta text-dim">Showing {bounded.length} businesses in view</div>
-          <BusinessList items={bounded} />
+          <BusinessList items={bounded} onView={(b) => navigate(`/business/${b.id}`)} />
         </div>
         <div className="map-page__map">
           <MapPlaceholder label="Map placeholder — Google Maps SDK to be integrated later" />
