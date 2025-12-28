@@ -20,6 +20,9 @@
   --gradient-start: #0c1a2a;
   --gradient-end: #1e3a4f;
 
+  /* Background imagery */
+  --bg-image: url('/images/cabin-hero-2.png');
+
   --radius-sm: 8px;
   --radius-md: 12px;
   --radius-lg: 16px;

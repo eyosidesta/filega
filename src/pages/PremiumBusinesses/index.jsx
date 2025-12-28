@@ -1,8 +1,10 @@
+import { useNavigate } from 'react-router-dom'
 import BusinessList from '../../components/BusinessList'
 import { getPremiumBusinesses } from '../../utils/dataHelpers'
 import './style.css'
 
 function PremiumBusinesses() {
+  const navigate = useNavigate()
   const items = getPremiumBusinesses()
   return (
     <div className="container section premium">
@@ -15,7 +17,7 @@ function PremiumBusinesses() {
           </p>
         </div>
       </div>
-      <BusinessList items={items} />
+      <BusinessList items={items} onView={(b) => navigate(`/business/${b.id}`)} />
     </div>
   )
 }

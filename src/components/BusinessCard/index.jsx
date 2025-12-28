@@ -6,7 +6,11 @@ import './style.css'
 function BusinessCard({ business, onView }) {
   const isPremium = business.subscription === 'PREMIUM'
   return (
-    <GlassCard variant={isPremium ? 'premium' : 'default'} className="business-card">
+    <GlassCard
+      variant={isPremium ? 'premium' : 'default'}
+      className="business-card"
+      onClick={() => onView?.(business)}
+    >
       <div className="business-card__header">
         <div>
           <div className="business-card__name">{business.name}</div>
@@ -27,7 +31,13 @@ function BusinessCard({ business, onView }) {
         )}
       </div>
 
-      <Button variant={isPremium ? 'premium' : 'secondary'} onClick={() => onView?.(business)}>
+      <Button
+        variant={isPremium ? 'premium' : 'secondary'}
+        onClick={(e) => {
+          e.stopPropagation()
+          onView?.(business)
+        }}
+      >
         View Details
       </Button>
     </GlassCard>
