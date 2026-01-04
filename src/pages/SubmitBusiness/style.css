@@ -18,6 +18,7 @@
 
 .submit__field label {
   font-weight: 600;
+  display: block;
 }
 
 .submit__field input,
@@ -29,12 +30,76 @@
   color: var(--text-primary);
   font-size: var(--font-size-base);
   outline: none;
+  width: 100%;
 }
 
 .submit__field.two-col {
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: var(--space-4);
 }
+
+.upload-box {
+  display: grid;
+  gap: var(--space-3);
+  padding: var(--space-5);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px dashed var(--glass-border-strong);
+  border-radius: var(--radius-lg);
+}
+
+.upload-help {
+  font-size: var(--font-size-sm);
+}
+
+.upload-status {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.upload-error {
+  color: #ffb4b4;
+  font-weight: 600;
+}
+
+.submit-success {
+  margin-top: var(--space-3);
+  color: #9ef0c0;
+  font-weight: 600;
+}
+
+.submit-error {
+  margin-top: var(--space-3);
+  color: #ffb4b4;
+  font-weight: 600;
+}
+
+.upload-list {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.upload-item {
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.upload-name {
+  font-size: var(--font-size-base);
+}
+
+.hidden-file {
+  display: none;
+}
+
+
+
+
+
+
+
+
 
 
 

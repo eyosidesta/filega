@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import SearchBar from '../../components/SearchBar'
 import FilterButton from '../../components/FilterButton'
@@ -6,14 +6,49 @@ import FeaturedCarousel from '../../components/FeaturedCarousel'
 import BusinessList from '../../components/BusinessList'
 import GlassCard from '../../components/GlassCard'
 import Button from '../../components/Button'
-import { getAllBusinesses, getPremiumBusinesses } from '../../utils/dataHelpers'
 import './style.css'
 
 function Home() {
   const navigate = useNavigate()
   const [search, setSearch] = useState('')
-  const premium = getPremiumBusinesses().slice(0, 6)
-  const recent = getAllBusinesses().slice(0, 6)
+  const [all, setAll] = useState([])
+  const [loading, setLoading] = useState(true)
+
+  const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080'
+
+  useEffect(() => {
+    let ignore = false
+    setLoading(true)
+    fetch(`${API_BASE}/businesses/all`)
+      .then((res) => (res.ok ? res.json() : []))
+      .then((data) => {
+        if (ignore) return
+        setAll(Array.isArray(data) ? data : [])
+      })
+      .finally(() => {
+        if (!ignore) setLoading(false)
+      })
+    return () => {
+      ignore = true
+    }
+  }, [API_BASE])
+
+  const filtered = useMemo(() => {
+    if (!search) return all
+    const t = search.toLowerCase()
+    return all.filter(
+      (b) =>
+        b.name.toLowerCase().includes(t) ||
+        (b.category || '').toLowerCase().includes(t) ||
+        (b.city || '').toLowerCase().includes(t)
+    )
+  }, [all, search])
+
+  const premium = useMemo(
+    () => filtered.filter((b) => b.subscription === 'PREMIUM').slice(0, 6),
+    [filtered]
+  )
+  const recent = useMemo(() => filtered.slice(0, 6), [filtered])
 
   return (
     <div className="home">
@@ -47,7 +82,11 @@ function Home() {
           </Button>
         </div>
         <div className="container">
-          <FeaturedCarousel items={premium} onView={(b) => navigate(`/business/${b.id}`)} />
+          {loading ? (
+            <p className="text-dim">Loading...</p>
+          ) : (
+            <FeaturedCarousel items={premium} onView={(b) => navigate(`/business/${b.id}`)} />
+          )}
         </div>
       </section>
 
@@ -59,7 +98,11 @@ function Home() {
           </Button>
         </div>
         <div className="container">
-          <BusinessList items={recent} onView={(b) => navigate(`/business/${b.id}`)} />
+          {loading ? (
+            <p className="text-dim">Loading...</p>
+          ) : (
+            <BusinessList items={recent} onView={(b) => navigate(`/business/${b.id}`)} />
+          )}
         </div>
       </section>
     </div>

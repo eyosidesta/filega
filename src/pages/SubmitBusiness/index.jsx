@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import GlassCard from '../../components/GlassCard'
 import Button from '../../components/Button'
 import categories from '../../data/categories.json'
@@ -17,12 +17,75 @@ function SubmitBusiness() {
     country: 'CA',
     subscription: 'BASIC'
   })
+  const [images, setImages] = useState([]) // { url, name }
+  const [uploading, setUploading] = useState(false)
+  const [uploadError, setUploadError] = useState('')
+  const [submitting, setSubmitting] = useState(false)
+  const [submitError, setSubmitError] = useState('')
+  const [submitSuccess, setSubmitSuccess] = useState('')
+  const fileInputRef = useRef(null)
+
+  const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080'
 
   const handleChange = (key, value) => setForm((prev) => ({ ...prev, [key]: value }))
 
+  const handleFileChange = async (e) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+    setUploadError('')
+    setUploading(true)
+    try {
+      const presignRes = await fetch(`${API_BASE}/media/presign`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          filename: file.name,
+          contentType: file.type,
+          folder: 'businesses'
+        })
+      })
+      if (!presignRes.ok) throw new Error('Failed to presign upload')
+      const { uploadUrl, publicUrl } = await presignRes.json()
+
+      const putRes = await fetch(uploadUrl, {
+        method: 'PUT',
+        headers: { 'Content-Type': file.type },
+        body: file
+      })
+      if (!putRes.ok) throw new Error('Failed to upload to storage')
+
+      setImages((prev) => [...prev, { url: publicUrl, name: file.name }])
+    } catch (err) {
+      console.log('error is: ', err)
+      setUploadError(err.message || 'Upload failed')
+    } finally {
+      setUploading(false)
+      if (fileInputRef.current) fileInputRef.current.value = ''
+    }
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault()
-    alert('Submission received (placeholder). Payment and backend to be added later.')
+    setSubmitError('')
+    setSubmitSuccess('')
+    setSubmitting(true)
+    const payload = { ...form, images: images.map((i) => i.url) }
+    fetch(`${API_BASE}/businesses`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    })
+      .then((res) => {
+        if (!res.ok) throw new Error('Submission failed')
+        return res.json()
+      })
+      .then(() => {
+        setSubmitSuccess('Submitted for review.')
+      })
+      .catch((err) => {
+        setSubmitError(err.message || 'Submission failed')
+      })
+      .finally(() => setSubmitting(false))
   }
 
   return (
@@ -119,9 +182,40 @@ function SubmitBusiness() {
             </div>
           </div>
 
+          <div className="submit__field">
+            <label>Images</label>
+            <div className="upload-box">
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept="image/*"
+                onChange={handleFileChange}
+                className="hidden-file"
+              />
+              <Button type="button" variant="secondary" onClick={() => fileInputRef.current?.click()}>
+                Select image
+              </Button>
+              <div className="upload-help text-dim">Upload one image at a time; stored in Spaces.</div>
+              {uploading && <div className="upload-status">Uploading...</div>}
+              {uploadError && <div className="upload-error">{uploadError}</div>}
+              {images.length > 0 && (
+                <div className="upload-list">
+                  {images.map((img) => (
+                    <div key={img.url} className="upload-item">
+                      <span className="pill">Image</span>
+                      <span className="upload-name">{img.name}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+
           <Button type="submit" fullWidth>
-            Submit (placeholder)
+            {submitting ? 'Submitting...' : 'Submit'}
           </Button>
+          {submitSuccess && <div className="submit-success">{submitSuccess}</div>}
+          {submitError && <div className="submit-error">{submitError}</div>}
         </form>
       </GlassCard>
     </div>
@@ -129,6 +223,14 @@ function SubmitBusiness() {
 }
 
 export default SubmitBusiness
+
+
+
+
+
+
+
+
 
 
 
