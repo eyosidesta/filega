@@ -5,12 +5,24 @@ import './style.css'
 
 function BusinessCard({ business, onView }) {
   const isPremium = business.subscription === 'PREMIUM'
+  const cover = business.images?.[0]
   return (
     <GlassCard
       variant={isPremium ? 'premium' : 'default'}
       className="business-card"
       onClick={() => onView?.(business)}
     >
+      <div
+        className="business-card__image"
+        style={
+          cover
+            ? { backgroundImage: `url(${cover})` }
+            : { backgroundImage: 'linear-gradient(135deg, rgba(255,255,255,0.15), rgba(0,0,0,0.25))' }
+        }
+      >
+        {isPremium && <Badge variant="premium">Premium</Badge>}
+      </div>
+
       <div className="business-card__header">
         <div>
           <div className="business-card__name">{business.name}</div>
@@ -19,7 +31,6 @@ function BusinessCard({ business, onView }) {
             <span className="pill">{business.city}</span>
           </div>
         </div>
-        {isPremium && <Badge variant="premium">Premium</Badge>}
       </div>
 
       <div className="business-card__contact">

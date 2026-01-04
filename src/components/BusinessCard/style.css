@@ -4,6 +4,22 @@
   cursor: pointer;
 }
 
+.business-card__image {
+  position: relative;
+  border-radius: var(--radius-lg);
+  height: 180px;
+  background-size: cover;
+  background-position: center;
+  border: 1px solid var(--glass-border);
+  overflow: hidden;
+}
+
+.business-card__image .badge {
+  position: absolute;
+  top: var(--space-4);
+  left: var(--space-4);
+}
+
 .business-card__header {
   display: flex;
   align-items: flex-start;
