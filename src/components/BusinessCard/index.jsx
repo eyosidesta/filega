@@ -16,7 +16,7 @@ function BusinessCard({ business, onView }) {
           <div className="business-card__name">{business.name}</div>
           <div className="business-card__meta">
             <span className="pill">{business.category}</span>
-            <span className="pill">{business.address.city}</span>
+            <span className="pill">{business.city}</span>
           </div>
         </div>
         {isPremium && <Badge variant="premium">Premium</Badge>}

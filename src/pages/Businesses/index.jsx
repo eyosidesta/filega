@@ -1,22 +1,48 @@
-import { useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import SearchBar from '../../components/SearchBar'
 import FilterButton from '../../components/FilterButton'
 import FilterPanel from '../../components/FilterPanel'
 import BusinessList from '../../components/BusinessList'
-import Pagination from '../../components/Pagination'
 import { useFilters } from '../../hooks/useFilters'
-import { useMockSearch } from '../../hooks/useMockSearch'
-import { usePagination } from '../../hooks/usePagination'
 import './style.css'
 
 function Businesses() {
   const navigate = useNavigate()
   const { filters, updateFilter, clearFilters } = useFilters()
   const [showFilters, setShowFilters] = useState(false)
-  const results = useMockSearch({ ...filters, term: filters.term || '' })
-  const { page, pageSize, nextPage, prevPage } = usePagination(1, 9)
-  const paginated = results.slice((page - 1) * pageSize, page * pageSize)
+  const [all, setAll] = useState([])
+  const [loading, setLoading] = useState(true)
+
+  const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080'
+
+  useEffect(() => {
+    let ignore = false
+    setLoading(true)
+    fetch(`${API_BASE}/businesses/all`)
+      .then((res) => (res.ok ? res.json() : []))
+      .then((data) => {
+        if (ignore) return
+        setAll(Array.isArray(data) ? data : [])
+      })
+      .finally(() => {
+        if (!ignore) setLoading(false)
+      })
+    return () => {
+      ignore = true
+    }
+  }, [API_BASE])
+
+  const filtered = useMemo(() => {
+    return all
+      .filter((b) => !filters.category || filters.category === 'All' || b.category === filters.category)
+      .filter((b) => !filters.city || filters.city === 'All' || b.city === filters.city)
+      .filter((b) => {
+        if (!filters.term) return true
+        const t = filters.term.toLowerCase()
+        return b.name.toLowerCase().includes(t) || (b.category || '').toLowerCase().includes(t)
+      })
+  }, [all, filters])
 
   return (
     <div className="container section businesses">
@@ -30,18 +56,10 @@ function Businesses() {
       )}
 
       <div className="businesses__meta text-dim">
-        Showing {paginated.length} of {results.length} businesses
+        {loading ? 'Loading...' : `Showing ${filtered.length} businesses`}
       </div>
 
-      <BusinessList items={paginated} onView={(b) => navigate(`/business/${b.id}`)} />
-
-      <Pagination
-        page={page}
-        pageSize={pageSize}
-        total={results.length}
-        onPrev={prevPage}
-        onNext={nextPage}
-      />
+      <BusinessList items={filtered} onView={(b) => navigate(`/business/${b.id}`)} />
     </div>
   )
 }
