@@ -5,7 +5,7 @@ import './style.css'
 
 function BusinessCard({ business, onView }) {
   const isPremium = business.subscription === 'PREMIUM'
-  const cover = business.images?.[0]
+  const cover = business.heroImage || business.images?.[0]
   return (
     <GlassCard
       variant={isPremium ? 'premium' : 'default'}
