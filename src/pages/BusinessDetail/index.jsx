@@ -6,6 +6,7 @@ import GlassCard from '../../components/GlassCard'
 import Badge from '../../components/Badge'
 import Button from '../../components/Button'
 import MapPlaceholder from '../../components/MapPlaceholder'
+import { API_BASE } from '../../utils/api'
 import './style.css'
 
 function BusinessDetail() {
@@ -13,8 +14,6 @@ function BusinessDetail() {
   const navigate = useNavigate()
   const [business, setBusiness] = useState(null)
   const [loading, setLoading] = useState(true)
-
-  const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080'
 
   useEffect(() => {
     let ignore = false

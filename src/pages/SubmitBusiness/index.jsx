@@ -2,6 +2,7 @@ import { useRef, useState } from 'react'
 import GlassCard from '../../components/GlassCard'
 import Button from '../../components/Button'
 import categories from '../../data/categories.json'
+import { API_BASE } from '../../utils/api'
 import './style.css'
 
 function SubmitBusiness() {
@@ -28,8 +29,6 @@ function SubmitBusiness() {
   const [submitSuccess, setSubmitSuccess] = useState('')
   const fileInputRef = useRef(null)
   const heroFileInputRef = useRef(null)
-
-  const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080'
 
   const handleChange = (key, value) => setForm((prev) => ({ ...prev, [key]: value }))
 

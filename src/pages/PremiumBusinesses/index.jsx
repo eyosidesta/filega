@@ -1,14 +1,13 @@
 import { useEffect, useState, useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
 import BusinessList from '../../components/BusinessList'
+import { API_BASE } from '../../utils/api'
 import './style.css'
 
 function PremiumBusinesses() {
   const navigate = useNavigate()
   const [all, setAll] = useState([])
   const [loading, setLoading] = useState(true)
-
-  const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080'
 
   useEffect(() => {
     let ignore = false

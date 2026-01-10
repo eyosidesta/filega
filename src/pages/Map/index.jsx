@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { MarkerClusterer } from '@googlemaps/markerclusterer'
 import MapPlaceholder from '../../components/MapPlaceholder'
+import { API_BASE } from '../../utils/api'
 import './style.css'
 
 const countryOptions = [
@@ -21,7 +22,6 @@ function MapPage() {
   const [category, setCategory] = useState('All')
   const [mapReady, setMapReady] = useState(false)
 
-  const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080'
   const MAPS_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY
 
   const mapRef = useRef(null)
