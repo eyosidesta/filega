@@ -202,14 +202,14 @@ function SubmitBusiness() {
                 <option value="US">United States (USD)</option>
               </select>
             </div>
-            <div>
+            {/* <div>
               <label>Postal/ZIP</label>
               <input
                 value={form.postalCode}
                 onChange={(e) => handleChange('postalCode', e.target.value)}
                 required
               />
-            </div>
+            </div> */}
           </div>
 
           <div className="submit__field">
