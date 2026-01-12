@@ -6,6 +6,7 @@ import FeaturedCarousel from '../../components/FeaturedCarousel'
 import BusinessList from '../../components/BusinessList'
 import GlassCard from '../../components/GlassCard'
 import Button from '../../components/Button'
+import { API_BASE } from '../../utils/api'
 import './style.css'
 
 function Home() {
@@ -13,8 +14,6 @@ function Home() {
   const [search, setSearch] = useState('')
   const [all, setAll] = useState([])
   const [loading, setLoading] = useState(true)
-
-  const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080'
 
   useEffect(() => {
     let ignore = false

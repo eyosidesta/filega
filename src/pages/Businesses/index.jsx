@@ -5,6 +5,7 @@ import FilterButton from '../../components/FilterButton'
 import FilterPanel from '../../components/FilterPanel'
 import BusinessList from '../../components/BusinessList'
 import { useFilters } from '../../hooks/useFilters'
+import { API_BASE } from '../../utils/api'
 import './style.css'
 
 function Businesses() {
@@ -13,8 +14,6 @@ function Businesses() {
   const [showFilters, setShowFilters] = useState(false)
   const [all, setAll] = useState([])
   const [loading, setLoading] = useState(true)
-
-  const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080'
 
   useEffect(() => {
     let ignore = false
