@@ -60,7 +60,8 @@ function SubmitBusiness() {
       })
       if (!putRes.ok) throw new Error('Failed to upload to storage')
 
-      setImages((prev) => [...prev, { url: publicUrl, name: file.name }])
+      const safeUrl = encodeURI(publicUrl)
+      setImages((prev) => [...prev, { url: safeUrl, name: file.name }])
     } catch (err) {
       console.log('error is: ', err)
       setUploadError(err.message || 'Upload failed')
@@ -70,33 +71,74 @@ function SubmitBusiness() {
     }
   }
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    setSubmitError('')
-    setSubmitSuccess('')
-    setSubmitting(true)
+  // const handleSubmit = (e) => {
+  //   e.preventDefault()
+  //   setSubmitError('')
+  //   setSubmitSuccess('')
+  //   setSubmitting(true)
+  //   const payload = {
+  //     ...form,
+  //     images: images.map((i) => i.url),
+  //     heroImage: heroImage?.url,
+  //   }
+  //   fetch(`${API_BASE}/businesses`, {
+  //     method: 'POST',
+  //     headers: { 'Content-Type': 'application/json', 'x-amz-acl': 'public-read' },
+  //     body: JSON.stringify(payload)
+  //   })
+  //     .then((res) => {
+  //       if (!res.ok) throw new Error('Submission failed')
+  //       return res.json()
+  //     })
+  //     .then(() => {
+  //       setSubmitSuccess('Submitted for review.')
+  //     })
+  //     .catch((err) => {
+  //       setSubmitError(err.message || 'Submission failed')
+  //     })
+  //     .finally(() => setSubmitting(false))
+  // }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setSubmitError('');
+    setSubmitSuccess('');
+    setSubmitting(true);
+  
     const payload = {
       ...form,
       images: images.map((i) => i.url),
       heroImage: heroImage?.url,
+    };
+  
+    try {
+      // 1️ Create draft business
+      const res = await fetch(`${API_BASE}/businesses`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      if (!res.ok) throw new Error('Failed to create business');
+      const business = await res.json();
+  
+      // 2️ Create Stripe Checkout session
+      const checkoutRes = await fetch(`${API_BASE}/payments/checkout-session`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ businessId: business.id, plan: form.subscription }),
+      });
+      if (!checkoutRes.ok) throw new Error('Failed to create checkout session');
+      const { url } = await checkoutRes.json();
+  
+      // 3️ Redirect user to Stripe
+      window.location.href = url;
+    } catch (err) {
+      console.error(err);
+      setSubmitError(err.message || 'Submission failed');
+      setSubmitting(false);
     }
-    fetch(`${API_BASE}/businesses`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'x-amz-acl': 'public-read' },
-      body: JSON.stringify(payload)
-    })
-      .then((res) => {
-        if (!res.ok) throw new Error('Submission failed')
-        return res.json()
-      })
-      .then(() => {
-        setSubmitSuccess('Submitted for review.')
-      })
-      .catch((err) => {
-        setSubmitError(err.message || 'Submission failed')
-      })
-      .finally(() => setSubmitting(false))
-  }
+  };
+  
 
   return (
     <div className="container section submit">
@@ -244,7 +286,8 @@ function SubmitBusiness() {
                     })
                     if (!putRes.ok) throw new Error('Failed to upload to storage')
 
-                    setHeroImage({ url: publicUrl, name: file.name })
+                    const safeUrl = encodeURI(publicUrl)
+                    setHeroImage({ url: safeUrl, name: file.name })
                   } catch (err) {
                     setHeroUploadError(err.message || 'Upload failed')
                   } finally {

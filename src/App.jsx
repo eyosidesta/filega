@@ -7,6 +7,8 @@ import MapPage from './pages/Map'
 import BusinessDetail from './pages/BusinessDetail'
 import SubmitBusiness from './pages/SubmitBusiness'
 import Contact from './pages/Contact'
+import PaymentSuccess from './pages/PaymentSuccess'
+import PaymentCancel from './pages/PaymentCancel'
 
 function App() {
   return (
@@ -20,6 +22,8 @@ function App() {
           <Route path="business/:id" element={<BusinessDetail />} />
           <Route path="submit" element={<SubmitBusiness />} />
           <Route path="contact" element={<Contact />} />
+          <Route path="payment/success" element={<PaymentSuccess />} />
+          <Route path="payment/cancel" element={<PaymentCancel />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
       </Routes>
