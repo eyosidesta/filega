@@ -1,0 +1,91 @@
+.admin-shell {
+  min-height: 100vh;
+  background: var(--gradient-start, #e0f7fa);
+  color: #0f172a;
+}
+
+.admin-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+}
+
+.admin-header__brand {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.admin-title {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.admin-subtitle {
+  font-size: 13px;
+  opacity: 0.7;
+}
+
+.admin-header__actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.admin-role {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.admin-role select {
+  padding: 6px 10px;
+  border-radius: 10px;
+  border: 1px solid rgba(15, 23, 42, 0.15);
+  background: white;
+}
+
+.admin-nav {
+  display: flex;
+  gap: 16px;
+  padding: 16px 24px;
+  border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+}
+
+.admin-nav__link {
+  padding: 8px 14px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 600;
+  color: #1e293b;
+  background: rgba(255, 255, 255, 0.45);
+}
+
+.admin-nav__link.active {
+  background: rgba(15, 23, 42, 0.9);
+  color: white;
+}
+
+.admin-content {
+  padding: 24px;
+}
+
+.admin-error {
+  margin-bottom: 16px;
+  color: #b91c1c;
+}
+
+.admin-loading {
+  margin-bottom: 16px;
+  color: #475569;
+}
+
+.admin-success {
+  margin-bottom: 16px;
+  color: #15803d;
+}

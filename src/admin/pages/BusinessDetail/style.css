@@ -1,0 +1,57 @@
+.admin-detail__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.admin-detail__grid {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+}
+
+.admin-card {
+  padding: 18px;
+}
+
+.admin-card h2 {
+  margin-bottom: 14px;
+}
+
+.admin-form {
+  display: grid;
+  gap: 12px;
+}
+
+.admin-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 13px;
+}
+
+.admin-form input,
+.admin-form select,
+.admin-form textarea {
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: 1px solid rgba(15, 23, 42, 0.15);
+  background: white;
+}
+
+.admin-form__full {
+  grid-column: 1 / -1;
+}
+
+.admin-form__actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 6px;
+}
+
+.admin-success {
+  margin-bottom: 16px;
+  color: #15803d;
+}
