@@ -9,6 +9,11 @@ import SubmitBusiness from './pages/SubmitBusiness'
 import Contact from './pages/Contact'
 import PaymentSuccess from './pages/PaymentSuccess'
 import PaymentCancel from './pages/PaymentCancel'
+import AdminLayout from './admin/layouts/AdminLayout'
+import AdminDashboard from './admin/pages/Dashboard'
+import AdminBusinesses from './admin/pages/Businesses'
+import AdminBusinessDetail from './admin/pages/BusinessDetail'
+import AdminNewBusiness from './admin/pages/NewBusiness'
 
 function App() {
   return (
@@ -25,6 +30,12 @@ function App() {
           <Route path="payment/success" element={<PaymentSuccess />} />
           <Route path="payment/cancel" element={<PaymentCancel />} />
           <Route path="*" element={<Navigate to="/" replace />} />
+        </Route>
+        <Route path="/admin" element={<AdminLayout />}>
+          <Route index element={<AdminDashboard />} />
+          <Route path="businesses" element={<AdminBusinesses />} />
+          <Route path="businesses/new" element={<AdminNewBusiness />} />
+          <Route path="businesses/:id" element={<AdminBusinessDetail />} />
         </Route>
       </Routes>
     </BrowserRouter>
